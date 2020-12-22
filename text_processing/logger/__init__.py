@@ -39,6 +39,11 @@ CONFIG = {
             'level': 'INFO',
             'propagate': False
         },
+        'clean_string': {
+            'handlers': ['errors','text_processing'],
+            'level': 'INFO',
+            'propagate': False
+        },
         '__main__': {  # if __name__ == '__main__'
             'handlers': ['default', 'errors'],
             'level': 'DEBUG',

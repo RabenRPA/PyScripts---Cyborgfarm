@@ -17,7 +17,6 @@ logger = logging.getLogger('detect_language')
 if text.strip():
     try:
         detected_languages = detect_langs(text)
-        logger.error('test')
         if detected_languages:
             for language in detected_languages:
                 detected_language = Language(iso2=str(language).split(':')[0],
