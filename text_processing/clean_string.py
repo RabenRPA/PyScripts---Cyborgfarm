@@ -19,5 +19,4 @@ try:
     text = text.strip()
     print(text)
 except Exception as e:
-    logger.error(e)
-    print(text)
+    logger.error(str(e))
