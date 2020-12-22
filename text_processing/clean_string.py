@@ -8,13 +8,15 @@ import re
 dictConfig(CONFIG)
 logger = logging.getLogger('clean_string')
 
-text = sys.argv[1]
+text = str(sys.argv[1].encode('utf8'))
 
 try:
     text = text.lower()
     text = ''.join([word for word in text if word not in string.punctuation])
     text = re.sub('[\n]', ' ', text)
     text = re.sub('[\r]', ' ', text)
+    text = re.sub('[\r\n]', ' ', text)
+    text = re.sub('[\n\r]', ' ', text)
     text = re.sub(' {2,}', ' ', text)
     text = text.strip()
     print(text)
