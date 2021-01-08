@@ -94,7 +94,6 @@ def split_address(str_address):
         logging.error('Split city address failed for: ' + city)
         sentences.append(city)
     sentences = clean_string_german(sentences)
-    logger.info(sentences)
     return sentences
 
 
