@@ -94,6 +94,7 @@ def split_address(str_address):
         logging.error('Split city address failed for: ' + city)
         sentences.append(city)
     sentences = clean_string_german(sentences)
+    logger.info(sentences)
     return sentences
 
 
@@ -126,6 +127,7 @@ if text is not None:
 
         if ref_list.empty == False:
             max_match = 0;
+            folder_names=[]
             classified_folders = []
             cleaned_input = clean_string_german(clean_string_stopwords(text_language, text))
             logger.debug('Cleaned_input_string: ' + text)
@@ -140,9 +142,13 @@ if text is not None:
                     if sentence in cleaned_input:
                         found_senteces += 1;
                 if found_senteces >= max_match and found_senteces > 1:
-                    row = {'folder': row['DestinationFolder'], 'address': row['ADDRESS'],
-                              'matching': found_senteces / len(sentences)}
-                    classified_folders.append(row)
+                    if row['FOLDER_NAME'] in folder_names:
+                        continue
+                    else:
+                        new_row = {'folder': row['FOLDER_NAME'], 'folder_test': row['FOLDER_NAME_TEST'], 'address': clean_string_german(row['ADDRESS']),
+                                  'matching': found_senteces / len(sentences)}
+                        folder_names.append(row['FOLDER_NAME'])
+                        classified_folders.append(new_row)
 
             classified_folders = sorted(classified_folders, key=lambda i: i['matching'], reverse=True)
             logger.info('classified_folders: ' + str(classified_folders) + '}')
