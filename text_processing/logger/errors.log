@@ -29,3 +29,9 @@
 2020-12-22 14:37:18,326 [ERROR] [clean_string.py - <module>():23] 'in <string>' requires string as left operand, not int
 2020-12-22 14:37:32,891 [ERROR] [clean_string.py - <module>():23] 'in <string>' requires string as left operand, not int
 2020-12-22 14:38:13,112 [ERROR] [clean_string.py - <module>():24] 'in <string>' requires string as left operand, not int
+2021-01-08 09:11:33,154 [ERROR] [classify_ssc_mailtofolder.py - <module>():120] Parsing json_ref_list failedMissing optional dependency 'openpyxl'.  Use pip or conda to install openpyxl.
+2021-01-08 09:16:23,685 [ERROR] [classify_ssc_mailtofolder.py - <module>():120] Parsing json_ref_list failedMissing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.
+2021-01-08 09:20:41,831 [ERROR] [classify_ssc_mailtofolder.py - <module>():120] Parsing json_ref_list failedExcel xlsx file; not supported
+2021-01-08 09:43:32,781 [ERROR] [classify_ssc_mailtofolder.py - <module>():121] Parsing json_ref_list failedPathLike() takes no arguments
+2021-01-08 09:44:01,987 [ERROR] [classify_ssc_mailtofolder.py - <module>():121] Parsing json_ref_list failedPathLike() takes no arguments
+2021-01-08 09:45:00,539 [ERROR] [classify_ssc_mailtofolder.py - <module>():121] Parsing json_ref_list failedMissing optional dependency 'xlrd'. Install xlrd >= 1.0.0 for Excel support Use pip or conda to install xlrd.

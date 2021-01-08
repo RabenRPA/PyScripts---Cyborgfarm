@@ -5,6 +5,7 @@ import logging
 import json
 import sys
 import re
+import os
 
 dictConfig(CONFIG)
 logger = logging.getLogger('detect_language')
@@ -114,41 +115,42 @@ def split_pc_city(address):
 
 
 try:
-    ref_list = pd.read_excel(io='text_processing/data/address_folders.xlsx', sheet_name='Main', header=0, engine='openpyxl')
+    ref_list = pd.read_excel(io='text_processing/data/address_folders.xlsx', header=0, engine='openpyxl')
 except Exception as e:
     ref_list = None
     logger.error("Parsing json_ref_list failed" + str(e))
 if text is not None:
     if text_language is not None:
-        logger.info('Input_string: ' + text)
-        logger.info('Input_string_language: ' + text_language)
+        logger.debug('Input_string: ' + text)
+        logger.debug('Input_string_language: ' + text_language)
 
         if ref_list.empty == False:
             max_match = 0;
             classified_folders = []
             cleaned_input = clean_string_german(clean_string_stopwords(text_language, text))
-            logger.info('Cleaned_input_string: ' + text)
+            logger.debug('Cleaned_input_string: ' + text)
 
-            for folder in ref_list:
+            for index, row in ref_list.iterrows():
                 found_senteces = 0;
-                cleaned_reference = clean_string_german(clean_string(folder['Address']))
+                cleaned_reference = clean_string_german(clean_string(row['ADDRESS']))
                 sentences = split_address(cleaned_reference)
-                logger.info('sentences: ' + str(sentences) + '}')
+                logger.debug('sentences: ' + str(sentences) + '}')
 
                 for sentence in sentences:
                     if sentence in cleaned_input:
                         found_senteces += 1;
                 if found_senteces >= max_match and found_senteces > 1:
-                    folder = {'folder': folder['DestinationFolder'], 'address': folder['Address'],
+                    row = {'folder': row['DestinationFolder'], 'address': row['ADDRESS'],
                               'matching': found_senteces / len(sentences)}
-                    classified_folders.append(folder)
+                    classified_folders.append(row)
 
             classified_folders = sorted(classified_folders, key=lambda i: i['matching'], reverse=True)
             logger.info('classified_folders: ' + str(classified_folders) + '}')
             json_rep = json.dumps(classified_folders, indent=2)
 
             print('{ "classified_folders" : ' + str(json_rep) + '\n}')
-        print('Reference text not defined')
+        else:
+            print('Reference text not defined')
     else:
         print('No input_text_language defined')
 else:
